@@ -1,0 +1,9 @@
+<ngx-chess-board
+  (moveChange)="movePiece($event)"
+  [size]="400"
+  #board
+  [lightDisabled]="boardIsDisabled"
+  [darkDisabled]="boardIsDisabled"
+  darkTileColor="#d7e7f9"
+  lightTileColor="#348efe"
+></ngx-chess-board>

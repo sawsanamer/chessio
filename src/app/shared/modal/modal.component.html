@@ -1,0 +1,16 @@
+<ng-template #modal let-modal>
+  <div class="modal-header" data-keyboard="false" data-backdrop="static">
+    <h4 class="modal-title" id="modal-basic-title">
+      {{ message }}
+    </h4>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="onButtonClick(modal)"
+    >
+      {{ buttonText }}
+    </button>
+  </div>
+</ng-template>

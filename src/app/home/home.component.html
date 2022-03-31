@@ -1,0 +1,40 @@
+<h1 class="heading">Enjoy Chess in 2 modes:</h1>
+<div class="con">
+  <div class="panel">
+    <div class="mode">
+      <h2 class="mode-header">2 Player Mode</h2>
+      <ul class="mode-info">
+        <li class="mode-info-item">Play Chess</li>
+        <li class="mode-info-item">If your friend is next to you</li>
+      </ul>
+      <span class="mode-msg">Enjoy</span>
+      <a routerLink="/play" class="mode-button">Play</a>
+    </div>
+
+    <div class="mode">
+      <h2 class="mode-header">Live Mode</h2>
+      <ul class="mode-info">
+        <li class="mode-info-item">Create Game</li>
+        <li class="mode-info-item">Tell your friend to join you</li>
+      </ul>
+      <span class="mode-msg">Have Fun</span>
+
+      <a routerLink="/live" class="mode-button is-featured">Start</a>
+    </div>
+  </div>
+
+  <div>
+    <div class="card">
+      <h2>Don't know what chess is?</h2>
+      <a routerLink="/about" class="learn-button is-featured">Learn here</a>
+    </div>
+    <ngx-chess-board
+      #board
+      darkTileColor="#d7e7f9"
+      lightTileColor="#348efe"
+      [lightDisabled]="true"
+      [darkDisabled]="true"
+      [size]="400"
+    ></ngx-chess-board>
+  </div>
+</div>

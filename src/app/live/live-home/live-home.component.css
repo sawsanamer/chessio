@@ -1,0 +1,37 @@
+button {
+  padding: 15px 35px;
+}
+.game-invite {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+input {
+  padding: 15px 35px;
+}
+.submit-button {
+  margin-left: 10px;
+}
+
+p {
+  margin: 10px;
+}
+.center {
+  text-align: center;
+  /* margin: 50px; */
+}
+div {
+  margin: 50px;
+}
+
+@media (max-width: 900px) {
+  .game-invite {
+    flex-direction: column;
+  }
+  input {
+    margin-bottom: 10px;
+  }
+  button {
+    margin-bottom: 10px;
+  }
+}

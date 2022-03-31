@@ -1,0 +1,37 @@
+<div class="center">
+  <h5 class="heading">
+    Play in 2 players mode. Come back any time to finish the game!
+  </h5>
+  <div class="container">
+    <div>
+      <h6>Player 1</h6>
+      <iframe
+        src="/iframe"
+        #iframe1
+        title="chess player 1 board"
+        height="430px"
+        width="430px"
+        (load)="onIframe1Load()"
+      ></iframe>
+    </div>
+    <div>
+      <h6>Player 2</h6>
+      <iframe
+        src="/iframe"
+        #iframe2
+        title="chess player 2 board"
+        height="430px"
+        width="430px"
+        (load)="onIframe2Load()"
+      ></iframe>
+    </div>
+  </div>
+  <button class="button btn" (click)="resetGame()">Reset Game</button>
+</div>
+
+<app-modal
+  message="Checkmate detected, game has ended."
+  (modalCreated)="onModalCreated($event)"
+  buttonText="Reset Game"
+  [onButtonClick]="onCloseModal.bind(this)"
+></app-modal>

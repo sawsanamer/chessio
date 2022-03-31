@@ -1,0 +1,31 @@
+<div class="center">
+  <h5>
+    Welcome to Live Chess Mode. Invite a friend to play or join your friend's
+    game.
+  </h5>
+
+  <div class="game-invite">
+    <button class="btn" (click)="createGame()">Create New Game</button>
+
+    <form #codeForm="ngForm" (ngSubmit)="joinGame(codeForm.value.enteredCode)">
+      <input
+        ngModel
+        type="text"
+        name="enteredCode"
+        id="enteredCode"
+        placeholder="Enter Game Code"
+      />
+      <input
+        type="submit"
+        value="Join Game"
+        class="btn is-featured submit-button"
+      />
+    </form>
+  </div>
+</div>
+<app-modal
+  [message]="errorMsg"
+  (modalCreated)="onModalCreated($event)"
+  buttonText="ok"
+  [onButtonClick]="onCloseModal"
+></app-modal>

@@ -1,0 +1,37 @@
+/* .card {
+  background-color: white;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  color: #888;
+} */
+.container {
+  margin: 50px;
+}
+.about-item {
+  background-color: white;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+p {
+  line-height: 2.3;
+  color: #888;
+  padding: 10px;
+}
+
+@media (max-width: 1000px) {
+  .about-item {
+    flex-direction: column;
+  }
+
+  .container {
+    margin: 10px;
+  }
+}

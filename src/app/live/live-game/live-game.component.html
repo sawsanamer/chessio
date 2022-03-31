@@ -1,0 +1,22 @@
+<div>
+  <ngx-chess-board
+    (moveChange)="movePiece($event)"
+    [size]="400"
+    #board
+    [lightDisabled]="boardIsDisabled"
+    [darkDisabled]="boardIsDisabled"
+    darkTileColor="#d7e7f9"
+    lightTileColor="#348efe"
+  ></ngx-chess-board>
+
+  <div>
+    <button type="button" class="btn" (click)="quit()">Quit Game</button>
+  </div>
+</div>
+
+<app-modal
+  [message]="modalMsg"
+  (modalCreated)="onModalCreated($event)"
+  buttonText="ok"
+  [onButtonClick]="onCloseModal.bind(this)"
+></app-modal>

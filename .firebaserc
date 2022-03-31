@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "final-chess": {
+      "hosting": {
+        "chess": [
+          "final-chess"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "final-chess"
+  }
+}
