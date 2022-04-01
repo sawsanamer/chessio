@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgxChessBoardView } from 'ngx-chess-board';
+import { BoardSizeService } from 'src/app/board-size.service';
 
 import { LiveGameManagerService } from '../services/live-game-manager.service';
 
@@ -18,9 +19,18 @@ export class LiveGameComponent implements AfterViewInit {
   board!: NgxChessBoardView;
   newGameModal!: ElementRef;
 
+  boardSize = 400;
+
+  ngOnInit(): void {
+    this.boardSizeService.boardSizeUpdated.subscribe((newBoardSize) => {
+      this.boardSize = newBoardSize;
+    });
+  }
+
   constructor(
     private route: ActivatedRoute,
-    private gameManagerService: LiveGameManagerService
+    private gameManagerService: LiveGameManagerService,
+    private boardSizeService: BoardSizeService
   ) {}
 
   ngAfterViewInit(): void {

@@ -21,6 +21,7 @@ import { HomeComponent } from './home/home.component';
 import { LiveHomeComponent } from './live/live-home/live-home.component';
 import { AboutComponent } from './about/about.component';
 import { ModalComponent } from './shared/modal/modal.component';
+import { BoardSizeService } from './board-size.service';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,7 @@ import { ModalComponent } from './shared/modal/modal.component';
     provideDatabase(() => getDatabase()),
     FormsModule,
   ],
-  providers: [DatabaseHandler, LiveGameManagerService],
+  providers: [DatabaseHandler, LiveGameManagerService, BoardSizeService],
 
   bootstrap: [AppComponent],
 })

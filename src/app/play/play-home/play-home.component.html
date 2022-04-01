@@ -9,8 +9,8 @@
         src="/iframe"
         #iframe1
         title="chess player 1 board"
-        height="430px"
-        width="430px"
+        [height]="iframeSize"
+        [width]="iframeSize"
         (load)="onIframe1Load()"
       ></iframe>
     </div>
@@ -20,8 +20,8 @@
         src="/iframe"
         #iframe2
         title="chess player 2 board"
-        height="430px"
-        width="430px"
+        [height]="iframeSize"
+        [width]="iframeSize"
         (load)="onIframe2Load()"
       ></iframe>
     </div>

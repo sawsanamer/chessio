@@ -8,6 +8,7 @@ import {
 import { GameStateService } from '../services/game-state.service';
 import { IframeManagerService } from '../services/iframe-manager.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { BoardSizeService } from 'src/app/board-size.service';
 
 @Component({
   selector: 'app-play-home',
@@ -16,6 +17,14 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   providers: [GameStateService, IframeManagerService],
 })
 export class PlayHomeComponent implements AfterViewInit {
+  iframeSize = '430px';
+
+  ngOnInit(): void {
+    this.boardSizeService.boardSizeUpdated.subscribe((newBoardSize) => {
+      this.iframeSize = (newBoardSize + 30).toString() + 'px';
+    });
+  }
+
   @ViewChild('iframe1', { static: false })
   iframe1!: ElementRef;
   @ViewChild('iframe2', { static: false })
@@ -60,7 +69,8 @@ export class PlayHomeComponent implements AfterViewInit {
   }
   constructor(
     private gameStateService: GameStateService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private boardSizeService: BoardSizeService
   ) {}
   ngAfterViewInit(): void {
     this.gameStateService.setGameData(this.iframe1, this.iframe2);

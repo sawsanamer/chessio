@@ -1,5 +1,6 @@
-import { Component, HostListener, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { NgxChessBoardView } from 'ngx-chess-board';
+import { BoardSizeService } from 'src/app/board-size.service';
 
 @Component({
   selector: 'app-iframe',
@@ -8,8 +9,15 @@ import { NgxChessBoardView } from 'ngx-chess-board';
 })
 export class IframeComponent {
   boardIsDisabled = false;
+  boardSize = 400;
 
-  constructor() {}
+  ngOnInit(): void {
+    this.boardSizeService.boardSizeUpdated.subscribe((newSize) => {
+      this.boardSize = newSize;
+    });
+  }
+
+  constructor(private boardSizeService: BoardSizeService) {}
   @ViewChild('board', { static: false })
   board!: NgxChessBoardView;
 

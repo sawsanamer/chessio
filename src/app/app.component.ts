@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs';
+import { BoardSizeService } from './board-size.service';
 
 @Component({
   selector: 'app-root',
@@ -8,12 +9,25 @@ import { filter } from 'rxjs';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  constructor(private router: Router) {
+  showHeader = true;
+
+  constructor(
+    private router: Router,
+    private boardSizeService: BoardSizeService
+  ) {
     router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: any) => {
         if (event.url === '/iframe') this.showHeader = false;
       });
+
+    this.getScreenSize();
   }
-  showHeader = true;
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize() {
+    let windowWidth = window.innerWidth;
+    if (windowWidth > 400) this.boardSizeService.boardSizeUpdated.emit(400);
+    else this.boardSizeService.boardSizeUpdated.emit(windowWidth - 20);
+  }
 }
