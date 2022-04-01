@@ -6,7 +6,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  isAuthenticated = true;
+  navbarCollapsed = true;
   constructor() {}
 
   ngOnInit() {}
