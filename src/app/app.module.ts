@@ -5,9 +5,7 @@ import { AppComponent } from './app.component';
 import { IframeComponent } from './play/iframe/iframe.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
-import { PlayComponent } from './play/play.component';
 import { HeaderComponent } from './header/header.component';
-import { LiveComponent } from './live/live.component';
 import { LiveGameComponent } from './live/live-game/live-game.component';
 import { WaitingComponent } from './live/waiting/waiting.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
@@ -27,9 +25,7 @@ import { BoardSizeService } from './board-size.service';
   declarations: [
     AppComponent,
     IframeComponent,
-    PlayComponent,
     HeaderComponent,
-    LiveComponent,
     LiveHomeComponent,
     LiveGameComponent,
     WaitingComponent,
