@@ -13,7 +13,7 @@ export class LiveHomeComponent {
     private gameManagerService: LiveGameManagerService,
     private modalService: NgbModal
   ) {
-    this.gameManagerService.checkIfGameExists();
+    this.gameManagerService.checkIfGameExists(this.onDatabaseError.bind(this));
   }
 
   errorMsg = '';

@@ -10,7 +10,11 @@
   ></ngx-chess-board>
 
   <div>
-    <button type="button" class="btn" (click)="quit()">Quit Game</button>
+    <app-button
+      type="button"
+      (buttonClicked)="quit()"
+      text="Quit Game"
+    ></app-button>
   </div>
 </div>
 

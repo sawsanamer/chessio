@@ -106,7 +106,7 @@ export class LiveGameManagerService {
   }
 
   redirectOnJoin() {
-    this.databaseHandler.getPlayer2JoinedState(this.gameCode, () => {
+    this.databaseHandler.subscribeToPlayer2JoinedState(this.gameCode, () => {
       this.router.navigate([`/game/${this.gameCode}/1`]);
     });
   }
@@ -120,13 +120,25 @@ export class LiveGameManagerService {
       });
     }
   }
-  checkIfGameExists() {
+  async checkIfGameExists(catchDatabaseError: Function) {
     let gameCode = localStorage.getItem('gameCode');
     let player = localStorage.getItem('player');
-    if (gameCode) this.router.navigate([`/game/${gameCode}/${player}`]);
+    if (player == '1') {
+      try {
+        let player2Joined = await this.databaseHandler.getPlayer2JoinedState(
+          gameCode
+        );
+        if (player2Joined)
+          this.router.navigate([`/game/${gameCode}/${player}`]);
+        else this.router.navigate([`/waiting/${gameCode}`]);
+      } catch (err) {
+        catchDatabaseError(err);
+      }
+    } else if (player == '2')
+      this.router.navigate([`/game/${gameCode}/${player}`]);
   }
   private checkIfGameEnded() {
-    this.databaseHandler.getGameEndedStatus(this.gameCode, () => {
+    this.databaseHandler.subscribeToGameEndedStatus(this.gameCode, () => {
       this.databaseHandler.deleteGame(this.gameCode);
       this.onGameFinished();
     });
@@ -140,7 +152,7 @@ export class LiveGameManagerService {
   private subscribeToGameData(onDatabaseError: Function) {
     this.resetNewMove(onDatabaseError)
       .then(() => {
-        this.databaseHandler.getGameData(
+        this.databaseHandler.subscribeToGameData(
           this.gameCode,
           (gameData: any) => {
             this.handleGameDataChanges(gameData);

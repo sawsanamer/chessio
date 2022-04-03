@@ -24,6 +24,10 @@ export class DatabaseHandler {
       })
       .catch((err) => onDatabaseError(err.message));
   }
+  async getPlayer2JoinedState(gameCode: any) {
+    let snapshot = await get(child(ref(this.db), `games/${gameCode}`));
+    return snapshot.val().player2Joined;
+  }
 
   getGameCode(
     gameCode: string,
@@ -44,7 +48,7 @@ export class DatabaseHandler {
       });
   }
 
-  getPlayer2JoinedState(gameCode: string, onPlayer2Joined: Function) {
+  subscribeToPlayer2JoinedState(gameCode: string, onPlayer2Joined: Function) {
     const starCountRef = ref(this.db, 'games/' + gameCode + '/player2Joined');
     onValue(starCountRef, (snapshot) => {
       const player2Joined = snapshot.val();
@@ -52,7 +56,11 @@ export class DatabaseHandler {
     });
   }
 
-  getGameData(gameCode: string, onFetch: Function, onDatabaseError: Function) {
+  subscribeToGameData(
+    gameCode: string,
+    onFetch: Function,
+    onDatabaseError: Function
+  ) {
     const movesRef = ref(this.db, 'games/' + gameCode);
     onValue(
       movesRef,
@@ -66,7 +74,7 @@ export class DatabaseHandler {
     );
   }
 
-  getGameEndedStatus(gameCode: string, onGameEnded: Function) {
+  subscribeToGameEndedStatus(gameCode: string, onGameEnded: Function) {
     const starCountRef = ref(this.db, 'games/' + gameCode + '/gameEnded');
     onValue(starCountRef, (snapshot) => {
       const gameEnded = snapshot.val();
