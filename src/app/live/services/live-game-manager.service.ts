@@ -63,14 +63,18 @@ export class LiveGameManagerService {
     }
   }
 
+  resetLocalStorage() {
+    localStorage.removeItem('gameCode');
+    localStorage.removeItem('player');
+  }
+
   quit() {
     this.databaseHandler.updateGameData(
       this.gameCode,
       { gameEnded: true },
       () => {}
     );
-    this.moves = [];
-    this.router.navigate([`/live`]);
+    this.onGameFinished();
   }
 
   joinGame(
@@ -82,6 +86,8 @@ export class LiveGameManagerService {
       gameCode,
       () => {
         this.databaseHandler.updatePlayer2Joined(gameCode, true, () => {
+          localStorage.setItem('gameCode', gameCode);
+          localStorage.setItem('player', '2');
           this.router.navigate([`/game/${gameCode}/2`]);
         });
       },
@@ -90,9 +96,11 @@ export class LiveGameManagerService {
     );
   }
 
-  navigateToGame(onDatabaseError: Function) {
+  createGame(onDatabaseError: Function) {
     this.databaseHandler.createGame((gameCode: string) => {
       this.gameCode = gameCode;
+      localStorage.setItem('gameCode', gameCode);
+      localStorage.setItem('player', '1');
       this.router.navigate([`/waiting/${gameCode}`]);
     }, onDatabaseError);
   }
@@ -103,12 +111,6 @@ export class LiveGameManagerService {
     });
   }
 
-  private checkIfGameEnded() {
-    this.databaseHandler.getGameEndedStatus(this.gameCode, () => {
-      this.databaseHandler.deleteGame(this.gameCode);
-      this.router.navigate([`/live`]);
-    });
-  }
   openModal() {
     if (!this.modalService.hasOpenModals()) {
       this.modalService.open(this.modal, {
@@ -117,6 +119,22 @@ export class LiveGameManagerService {
         keyboard: true,
       });
     }
+  }
+  checkIfGameExists() {
+    let gameCode = localStorage.getItem('gameCode');
+    let player = localStorage.getItem('player');
+    if (gameCode) this.router.navigate([`/game/${gameCode}/${player}`]);
+  }
+  private checkIfGameEnded() {
+    this.databaseHandler.getGameEndedStatus(this.gameCode, () => {
+      this.databaseHandler.deleteGame(this.gameCode);
+      this.onGameFinished();
+    });
+  }
+  private onGameFinished() {
+    this.moves = [];
+    this.resetLocalStorage();
+    this.router.navigate([`/live`]);
   }
 
   private subscribeToGameData(onDatabaseError: Function) {

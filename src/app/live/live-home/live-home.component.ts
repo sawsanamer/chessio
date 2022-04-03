@@ -1,6 +1,7 @@
 import { Component, ElementRef } from '@angular/core';
 import { LiveGameManagerService } from '../services/live-game-manager.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-live-home',
@@ -11,7 +12,9 @@ export class LiveHomeComponent {
   constructor(
     private gameManagerService: LiveGameManagerService,
     private modalService: NgbModal
-  ) {}
+  ) {
+    this.gameManagerService.checkIfGameExists();
+  }
 
   errorMsg = '';
   errorModal!: ElementRef;
@@ -51,6 +54,6 @@ export class LiveHomeComponent {
     }
   }
   createGame() {
-    this.gameManagerService.navigateToGame(this.onDatabaseError.bind(this));
+    this.gameManagerService.createGame(this.onDatabaseError.bind(this));
   }
 }
