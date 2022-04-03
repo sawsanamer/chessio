@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BoardSizeService } from '../board-size.service';
 
 @Component({
@@ -7,8 +7,8 @@ import { BoardSizeService } from '../board-size.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  boardSize = 400;
   constructor(private boardSizeService: BoardSizeService) {}
+  boardSize = 400;
 
   ngOnInit(): void {
     this.boardSizeService.boardSizeUpdated.subscribe((newSize) => {

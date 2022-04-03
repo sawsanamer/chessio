@@ -20,6 +20,7 @@ import { LiveHomeComponent } from './live/live-home/live-home.component';
 import { AboutComponent } from './about/about.component';
 import { ModalComponent } from './shared/modal/modal.component';
 import { BoardSizeService } from './board-size.service';
+import { ButtonComponent } from './shared/button/button.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { BoardSizeService } from './board-size.service';
     HomeComponent,
     ModalComponent,
     AboutComponent,
+    ButtonComponent,
   ],
   imports: [
     BrowserModule,

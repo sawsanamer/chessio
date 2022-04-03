@@ -1,0 +1,26 @@
+.btn {
+  border: 1px solid #9dd1ff;
+  border-radius: 10px;
+  color: #348efe;
+  display: inline-block;
+  text-decoration: none;
+  transition: background-color 200ms ease-in-out;
+  background-color: white;
+  padding: 15px 35px;
+}
+
+.btn:hover,
+.btn:focus {
+  background-color: #e1f1ff;
+}
+
+.btn.is-featured {
+  background-color: #48aaff;
+  color: white;
+}
+
+.btn.is-featured:hover,
+.btn.is-featured:focus {
+  background-color: #269aff;
+  color: white;
+}

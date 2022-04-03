@@ -5,7 +5,10 @@
   </h5>
 
   <div class="game-invite">
-    <button class="btn" (click)="createGame()">Create New Game</button>
+    <app-button
+      text="Create New Game"
+      (buttonClicked)="createGame()"
+    ></app-button>
 
     <form #codeForm="ngForm" (ngSubmit)="joinGame(codeForm.value.enteredCode)">
       <input
@@ -15,14 +18,14 @@
         id="enteredCode"
         placeholder="Enter Game Code"
       />
-      <input
-        type="submit"
-        value="Join Game"
-        class="btn is-featured submit-button"
-      />
+      <app-button type="submit" text="Join Game" isFeatured="true"></app-button>
+      <!-- <button type="submit" class="btn is-featured submit-button">
+        Join Game
+      </button> -->
     </form>
   </div>
 </div>
+
 <app-modal
   [message]="errorMsg"
   (modalCreated)="onModalCreated($event)"

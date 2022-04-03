@@ -1,24 +1,18 @@
-button {
-  padding: 15px 35px;
+.center {
+  text-align: center;
 }
+
 .game-invite {
   display: flex;
   justify-content: space-evenly;
 }
 
-input {
-  padding: 15px 35px;
-}
-.submit-button {
+app-button {
   margin-left: 10px;
 }
 
-p {
-  margin: 10px;
-}
-.center {
-  text-align: center;
-  /* margin: 50px; */
+input {
+  padding: 15px 35px;
 }
 div {
   margin: 50px;
@@ -27,11 +21,11 @@ div {
 @media (max-width: 900px) {
   .game-invite {
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
-  input {
+  app-button {
     margin-bottom: 10px;
-  }
-  button {
-    margin-bottom: 10px;
+    margin-top: 10px;
   }
 }

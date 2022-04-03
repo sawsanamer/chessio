@@ -208,38 +208,13 @@ table {
 }
 
 .mode-button {
-  border: 1px solid #9dd1ff;
-  border-radius: 10px;
-  color: #348efe;
   display: inline-block;
-  padding: 15px 35px;
-  text-decoration: none;
-  margin: 25px 0;
+  margin: 35px 0;
 }
 
 .learn-button {
-  border-radius: 10px;
   display: inline-block;
-  padding: 5px 15px;
-  text-decoration: none;
   margin-left: 10px;
-  transition: background-color 200ms ease-in-out;
-}
-
-.mode-button:hover,
-.mode-button:focus {
-  background-color: #e1f1ff;
-}
-
-.is-featured {
-  background-color: #48aaff;
-  color: white;
-}
-
-.is-featured:hover,
-.is-featured:focus {
-  background-color: #269aff;
-  color: white;
 }
 
 @media (min-width: 900px) {

@@ -1,0 +1,38 @@
+<!-- <ng-container *ngTemplateOutlet="buttonConfig['route'] ? a : button">
+</ng-container>
+
+<ng-template #button>
+  <button type="buttonConfig.type" [ngStyle]="buttonConfig.styles">
+    {{ buttonConfig.text }}
+  </button>
+</ng-template>
+
+<ng-template #a>
+  <a routerLink="buttonConfig.route" [ngStyle]="buttonConfig.styles">{{
+    buttonConfig.text
+  }}</a>
+</ng-template> -->
+
+<ng-container *ngTemplateOutlet="route ? a : button"> </ng-container>
+
+<ng-template #button>
+  <button
+    type="type"
+    [ngStyle]="style"
+    class="btn"
+    [ngClass]="{ 'is-featured': isFeatured }"
+    (click)="onButtonClick()"
+  >
+    {{ text }}
+  </button>
+</ng-template>
+
+<ng-template #a>
+  <a
+    [routerLink]="route"
+    [ngStyle]="style"
+    class="btn"
+    [ngClass]="{ 'is-featured': isFeatured }"
+    >{{ text }}</a
+  >
+</ng-template>

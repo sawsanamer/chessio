@@ -8,7 +8,8 @@
         <li class="mode-info-item">If your friend is next to you</li>
       </ul>
       <span class="mode-msg">Enjoy</span>
-      <a routerLink="/play" class="mode-button">Play</a>
+      <app-button route="/play" text="Play" class="mode-button"></app-button>
+      <!-- <a routerLink="/play" class="mode-button">Play</a> -->
     </div>
 
     <div class="mode">
@@ -19,14 +20,26 @@
       </ul>
       <span class="mode-msg">Have Fun</span>
 
-      <a routerLink="/live" class="mode-button is-featured">Start</a>
+      <app-button
+        route="/live"
+        isFeatured="true"
+        text="Start"
+        class="mode-button"
+      ></app-button>
+      <!-- <a routerLink="/live" class="mode-button is-featured">Start</a> -->
     </div>
   </div>
 
   <div>
     <div class="card">
       <h2>Don't know what chess is?</h2>
-      <a routerLink="/about" class="learn-button is-featured">Learn here</a>
+      <app-button
+        route="/about"
+        text="Learn Here"
+        isFeatured="true"
+        class="learn-button"
+        [style]="{ padding: '5px 15px' }"
+      ></app-button>
     </div>
     <ngx-chess-board
       #board

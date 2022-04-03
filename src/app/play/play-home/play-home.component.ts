@@ -29,7 +29,6 @@ export class PlayHomeComponent implements AfterViewInit {
   iframe1!: ElementRef;
   @ViewChild('iframe2', { static: false })
   iframe2!: ElementRef;
-  // @ViewChild('newGameModal', { static: false })
   newGameModal!: ElementRef;
 
   onIframe1Load() {
