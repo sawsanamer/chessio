@@ -63,9 +63,9 @@ export class LiveGameManagerService {
     }
   }
 
-  resetLocalStorage() {
-    localStorage.removeItem('gameCode');
-    localStorage.removeItem('player');
+  deleteGameOnWaiting(gameCode: string) {
+    this.databaseHandler.deleteGame(gameCode);
+    this.onGameFinished();
   }
 
   quit() {
@@ -136,6 +136,11 @@ export class LiveGameManagerService {
       }
     } else if (player == '2')
       this.router.navigate([`/game/${gameCode}/${player}`]);
+  }
+
+  private resetLocalStorage() {
+    localStorage.removeItem('gameCode');
+    localStorage.removeItem('player');
   }
   private checkIfGameEnded() {
     this.databaseHandler.subscribeToGameEndedStatus(this.gameCode, () => {

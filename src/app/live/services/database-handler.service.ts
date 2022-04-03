@@ -49,8 +49,11 @@ export class DatabaseHandler {
   }
 
   subscribeToPlayer2JoinedState(gameCode: string, onPlayer2Joined: Function) {
-    const starCountRef = ref(this.db, 'games/' + gameCode + '/player2Joined');
-    onValue(starCountRef, (snapshot) => {
+    const player2JoinedRef = ref(
+      this.db,
+      'games/' + gameCode + '/player2Joined'
+    );
+    onValue(player2JoinedRef, (snapshot) => {
       const player2Joined = snapshot.val();
       if (player2Joined) onPlayer2Joined();
     });
@@ -75,8 +78,8 @@ export class DatabaseHandler {
   }
 
   subscribeToGameEndedStatus(gameCode: string, onGameEnded: Function) {
-    const starCountRef = ref(this.db, 'games/' + gameCode + '/gameEnded');
-    onValue(starCountRef, (snapshot) => {
+    const gameEndedRef = ref(this.db, 'games/' + gameCode + '/gameEnded');
+    onValue(gameEndedRef, (snapshot) => {
       const gameEnded = snapshot.val();
       if (gameEnded) {
         onGameEnded();

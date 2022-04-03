@@ -18,4 +18,8 @@ export class WaitingComponent implements OnInit {
     this.gameCode = this.route.snapshot.params['code'];
     this.gameManagerService.redirectOnJoin();
   }
+
+  quit() {
+    this.gameManagerService.deleteGameOnWaiting(this.gameCode);
+  }
 }

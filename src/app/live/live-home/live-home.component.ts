@@ -1,7 +1,6 @@
 import { Component, ElementRef } from '@angular/core';
 import { LiveGameManagerService } from '../services/live-game-manager.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-live-home',
