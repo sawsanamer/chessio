@@ -13,7 +13,7 @@ import { environment } from '../environments/environment';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { FormsModule } from '@angular/forms';
 import { LiveGameManagerService } from './live/services/live-game-manager.service';
-import { DatabaseHandler } from './live/services/database-handler.service';
+import { DatabaseHandlerService } from './live/services/database-handler.service';
 import { PlayHomeComponent } from './play/play-home/play-home.component';
 import { HomeComponent } from './home/home.component';
 import { LiveHomeComponent } from './live/live-home/live-home.component';
@@ -45,7 +45,7 @@ import { ButtonComponent } from './shared/button/button.component';
     provideDatabase(() => getDatabase()),
     FormsModule,
   ],
-  providers: [DatabaseHandler, LiveGameManagerService, BoardSizeService],
+  providers: [DatabaseHandlerService, LiveGameManagerService, BoardSizeService],
 
   bootstrap: [AppComponent],
 })

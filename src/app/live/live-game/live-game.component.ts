@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnDestroy,
+  ViewChild,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgxChessBoardView } from 'ngx-chess-board';
 import { BoardSizeService } from 'src/app/board-size.service';
@@ -10,10 +16,10 @@ import { LiveGameManagerService } from '../services/live-game-manager.service';
   templateUrl: './live-game.component.html',
   styleUrls: ['./live-game.component.css'],
 })
-export class LiveGameComponent implements AfterViewInit {
+export class LiveGameComponent implements AfterViewInit, OnDestroy {
   boardIsDisabled = false;
   playerId: string = '';
-  modalMsg = 'Checkmate detected, game has ended.';
+  modalMsg = 'Game has ended.';
 
   @ViewChild('board', { static: false })
   board!: NgxChessBoardView;
@@ -49,12 +55,16 @@ export class LiveGameComponent implements AfterViewInit {
     this.gameManagerService.openModal();
   }
   onCloseModal(modal: any) {
-    this.quit();
     modal.close();
   }
   quit() {
     this.gameManagerService.quit();
   }
+
+  ngOnDestroy(): void {
+    this.gameManagerService.onGameDestroy();
+  }
+
   private init() {
     this.playerId = this.route.snapshot.params['id'];
     let gameCode = this.route.snapshot.params['code'];

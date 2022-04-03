@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import {
   child,
   Database,
+  DatabaseReference,
   get,
+  off,
   onValue,
   push,
   ref,
@@ -11,7 +13,7 @@ import {
 } from '@angular/fire/database';
 
 @Injectable()
-export class DatabaseHandler {
+export class DatabaseHandlerService {
   constructor(private db: Database) {}
 
   createGame(onCreateGame: Function, onDatabaseError: Function) {
@@ -57,13 +59,17 @@ export class DatabaseHandler {
       const player2Joined = snapshot.val();
       if (player2Joined) onPlayer2Joined();
     });
+    return player2JoinedRef;
+  }
+  unsubscribeToPlayer2JoinedState(player2JoinedRef: any) {
+    off(player2JoinedRef);
   }
 
   subscribeToGameData(
     gameCode: string,
     onFetch: Function,
     onDatabaseError: Function
-  ) {
+  ): DatabaseReference {
     const movesRef = ref(this.db, 'games/' + gameCode);
     onValue(
       movesRef,
@@ -75,16 +81,10 @@ export class DatabaseHandler {
         onDatabaseError(err.message);
       }
     );
+    return movesRef;
   }
-
-  subscribeToGameEndedStatus(gameCode: string, onGameEnded: Function) {
-    const gameEndedRef = ref(this.db, 'games/' + gameCode + '/gameEnded');
-    onValue(gameEndedRef, (snapshot) => {
-      const gameEnded = snapshot.val();
-      if (gameEnded) {
-        onGameEnded();
-      }
-    });
+  unSubscribeToGameData(gameDataRef: any) {
+    off(gameDataRef);
   }
 
   updatePlayer2Joined(
