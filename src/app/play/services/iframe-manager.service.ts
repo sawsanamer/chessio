@@ -1,5 +1,5 @@
-import { ElementRef } from '@angular/core';
-
+import { ElementRef, Injectable } from '@angular/core';
+@Injectable({ providedIn: 'root' })
 export class IframeManagerService {
   iframe1!: ElementRef;
   iframe2!: ElementRef;

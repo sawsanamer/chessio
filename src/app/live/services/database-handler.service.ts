@@ -12,7 +12,7 @@ import {
   update,
 } from '@angular/fire/database';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DatabaseHandlerService {
   constructor(private db: Database) {}
 

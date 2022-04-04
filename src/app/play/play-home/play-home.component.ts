@@ -6,7 +6,6 @@ import {
   HostListener,
 } from '@angular/core';
 import { GameStateService } from '../services/game-state.service';
-import { IframeManagerService } from '../services/iframe-manager.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BoardSizeService } from 'src/app/board-size.service';
 
@@ -14,7 +13,6 @@ import { BoardSizeService } from 'src/app/board-size.service';
   selector: 'app-play-home',
   templateUrl: './play-home.component.html',
   styleUrls: ['./play-home.component.css'],
-  providers: [GameStateService, IframeManagerService],
 })
 export class PlayHomeComponent implements AfterViewInit {
   iframeSize = '430px';

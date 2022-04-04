@@ -5,7 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgxChessBoardView } from 'ngx-chess-board';
 import { DatabaseHandlerService } from './database-handler.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class LiveGameManagerService {
   constructor(
     private databaseHandler: DatabaseHandlerService,
@@ -204,7 +204,7 @@ export class LiveGameManagerService {
       this.onGameEnded();
     } else if (moves) {
       if (newMove && !this.moves.includes(newMove)) {
-        this.moves = moves;
+        this.moves.push(newMove);
         this.board.move(newMove);
       } else if (newMove === '') {
         for (let i = 0; i < moves.length; i++) {

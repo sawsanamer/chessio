@@ -45,7 +45,6 @@ import { ButtonComponent } from './shared/button/button.component';
     provideDatabase(() => getDatabase()),
     FormsModule,
   ],
-  providers: [DatabaseHandlerService, LiveGameManagerService, BoardSizeService],
 
   bootstrap: [AppComponent],
 })
