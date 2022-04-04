@@ -19,14 +19,6 @@ export class IframeManagerService {
     this.sendIframe2Message({ reverse: true });
   }
 
-  private sendIframe1Message(object: {}) {
-    this.iframe1.nativeElement.contentWindow.postMessage(object);
-  }
-
-  private sendIframe2Message(object: {}) {
-    this.iframe2.nativeElement.contentWindow.postMessage(object);
-  }
-
   handleIframesOnMove(src: string, location: string, lastColor: string) {
     this.moveOtherIframeBoard(src, location);
 
@@ -59,5 +51,13 @@ export class IframeManagerService {
       reverse: true,
       boardIsDisabled: true,
     });
+  }
+
+  private sendIframe1Message(object: {}) {
+    this.iframe1.nativeElement.contentWindow.postMessage(object);
+  }
+
+  private sendIframe2Message(object: {}) {
+    this.iframe2.nativeElement.contentWindow.postMessage(object);
   }
 }

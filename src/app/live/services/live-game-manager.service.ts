@@ -13,16 +13,12 @@ export class LiveGameManagerService {
     private router: Router,
     private modalService: NgbModal
   ) {}
-  // boardIsDisabledUpdated = new EventEmitter<boolean>();
-
   private boardIsDisabledUpdated = new BehaviorSubject(false);
   boardIsDisabled = this.boardIsDisabledUpdated.asObservable();
 
   gameCode: string = '';
   moves: string[] = [];
   playerId: string = '';
-  // boardIsDisabled = false;
-
   gameDataRef: DatabaseReference | undefined;
   player2JoinedRef: DatabaseReference | undefined;
   board!: NgxChessBoardView;
@@ -155,19 +151,6 @@ export class LiveGameManagerService {
     this.router.navigate([`/live`]);
   }
 
-  private subscribeToGameData(onDatabaseError: Function) {
-    this.resetNewMove(onDatabaseError)
-      .then(() => {
-        this.gameDataRef = this.databaseHandler.subscribeToGameData(
-          this.gameCode,
-          this.handleGameDataChanges.bind(this),
-          onDatabaseError
-        );
-      })
-      .catch((err) => {
-        onDatabaseError(err.message);
-      });
-  }
   onGameDestroy() {
     this.databaseHandler.unSubscribeToGameData(this.gameDataRef);
   }
@@ -181,6 +164,20 @@ export class LiveGameManagerService {
       { newMove: '' },
       onDatabaseError
     );
+  }
+
+  private subscribeToGameData(onDatabaseError: Function) {
+    this.resetNewMove(onDatabaseError)
+      .then(() => {
+        this.gameDataRef = this.databaseHandler.subscribeToGameData(
+          this.gameCode,
+          this.handleGameDataChanges.bind(this),
+          onDatabaseError
+        );
+      })
+      .catch((err) => {
+        onDatabaseError(err.message);
+      });
   }
 
   private disableOtherBoard() {

@@ -8,12 +8,12 @@ import { LiveGameManagerService } from '../services/live-game-manager.service';
   styleUrls: ['./waiting.component.css'],
 })
 export class WaitingComponent implements OnInit, OnDestroy {
+  gameCode: string = '';
+
   constructor(
     private route: ActivatedRoute,
     private gameManagerService: LiveGameManagerService
   ) {}
-
-  gameCode: string = '';
   ngOnInit(): void {
     this.gameCode = this.route.snapshot.params['code'];
     this.gameManagerService.redirectOnJoin();

@@ -1,10 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  HostListener,
-  OnDestroy,
-  ViewChild,
-} from '@angular/core';
+import { Component, HostListener, OnDestroy, ViewChild } from '@angular/core';
 import { NgxChessBoardView } from 'ngx-chess-board';
 import { Subscription } from 'rxjs';
 import { BoardSizeService } from 'src/app/board-size.service';
@@ -18,6 +12,10 @@ export class IframeComponent implements OnDestroy {
   boardIsDisabled = false;
   boardSize = 400;
   boardSizeSubscription!: Subscription;
+  @ViewChild('board', { static: false })
+  board!: NgxChessBoardView;
+
+  constructor(private boardSizeService: BoardSizeService) {}
 
   ngOnInit(): void {
     this.boardSizeSubscription = this.boardSizeService.boardSize.subscribe(
@@ -27,17 +25,13 @@ export class IframeComponent implements OnDestroy {
     );
   }
 
-  constructor(private boardSizeService: BoardSizeService) {}
-  ngOnDestroy(): void {
-    this.boardSizeSubscription.unsubscribe();
-  }
-  @ViewChild('board', { static: false })
-  board!: NgxChessBoardView;
-
   movePiece(event: any) {
     window.parent.postMessage(event);
   }
 
+  ngOnDestroy(): void {
+    this.boardSizeSubscription.unsubscribe();
+  }
   @HostListener('window:message', ['$event'])
   onMessage(event: any) {
     if (window.origin == event.origin) {

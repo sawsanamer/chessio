@@ -23,10 +23,14 @@ export class LiveGameComponent implements AfterViewInit, OnDestroy {
   modalMsg = 'Game has ended.';
   boardIsDisabledSubscription!: Subscription;
   boardSizeSubscription!: Subscription;
-
   @ViewChild('board', { static: false })
   board!: NgxChessBoardView;
   newGameModal!: ElementRef;
+  constructor(
+    private route: ActivatedRoute,
+    private gameManagerService: LiveGameManagerService,
+    private boardSizeService: BoardSizeService
+  ) {}
 
   boardSize = 400;
 
@@ -37,12 +41,6 @@ export class LiveGameComponent implements AfterViewInit, OnDestroy {
       }
     );
   }
-
-  constructor(
-    private route: ActivatedRoute,
-    private gameManagerService: LiveGameManagerService,
-    private boardSizeService: BoardSizeService
-  ) {}
 
   ngAfterViewInit(): void {
     this.init();
@@ -55,10 +53,6 @@ export class LiveGameComponent implements AfterViewInit, OnDestroy {
     this.gameManagerService.move(event, this.catchDatabaseError.bind(this));
   }
 
-  private catchDatabaseError(err: any) {
-    this.modalMsg = `Error: ${err}`;
-    this.gameManagerService.openModal();
-  }
   onCloseModal(modal: any) {
     modal.close();
   }
@@ -70,6 +64,10 @@ export class LiveGameComponent implements AfterViewInit, OnDestroy {
     this.gameManagerService.onGameDestroy();
     this.boardSizeSubscription.unsubscribe();
     this.boardIsDisabledSubscription.unsubscribe();
+  }
+  private catchDatabaseError(err: any) {
+    this.modalMsg = `Error: ${err}`;
+    this.gameManagerService.openModal();
   }
 
   private init() {

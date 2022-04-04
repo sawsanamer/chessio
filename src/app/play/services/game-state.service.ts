@@ -17,14 +17,6 @@ export class GameStateService {
     }
   }
 
-  private setIframes(iframe1: ElementRef, iframe2: ElementRef) {
-    this.iframeManagerService.setIframes(iframe1, iframe2);
-  }
-
-  private setLocalStorageData() {
-    this.localStorageItems = JSON.parse(localStorage.getItem('moves') || '[]');
-  }
-
   initGameFromLocalStorage() {
     this.iframeManagerService.initIframesWithData(this.localStorageItems);
   }
@@ -45,5 +37,13 @@ export class GameStateService {
     this.iframeManagerService.resetIframes();
     this.moves = [];
     localStorage.removeItem('moves');
+  }
+
+  private setIframes(iframe1: ElementRef, iframe2: ElementRef) {
+    this.iframeManagerService.setIframes(iframe1, iframe2);
+  }
+
+  private setLocalStorageData() {
+    this.localStorageItems = JSON.parse(localStorage.getItem('moves') || '[]');
   }
 }

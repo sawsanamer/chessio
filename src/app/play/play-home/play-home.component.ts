@@ -21,6 +21,17 @@ import { IframeManagerService } from '../services/iframe-manager.service';
 export class PlayHomeComponent implements AfterViewInit, OnDestroy {
   iframeSize = '430px';
   boardSizeSubscription!: Subscription;
+  @ViewChild('iframe1', { static: false })
+  iframe1!: ElementRef;
+  @ViewChild('iframe2', { static: false })
+  iframe2!: ElementRef;
+  newGameModal!: ElementRef;
+
+  constructor(
+    private gameStateService: GameStateService,
+    private modalService: NgbModal,
+    private boardSizeService: BoardSizeService
+  ) {}
 
   ngOnInit(): void {
     this.boardSizeSubscription = this.boardSizeService.boardSize.subscribe(
@@ -30,12 +41,9 @@ export class PlayHomeComponent implements AfterViewInit, OnDestroy {
     );
   }
 
-  @ViewChild('iframe1', { static: false })
-  iframe1!: ElementRef;
-  @ViewChild('iframe2', { static: false })
-  iframe2!: ElementRef;
-  newGameModal!: ElementRef;
-
+  ngAfterViewInit(): void {
+    this.gameStateService.setGameData(this.iframe1, this.iframe2);
+  }
   onIframe1Load() {
     this.gameStateService.initGameFromLocalStorage();
   }
@@ -71,17 +79,6 @@ export class PlayHomeComponent implements AfterViewInit, OnDestroy {
   resetGame() {
     this.gameStateService.reset();
   }
-  constructor(
-    private gameStateService: GameStateService,
-    private modalService: NgbModal,
-    private boardSizeService: BoardSizeService
-  ) {}
-  ngOnDestroy(): void {
-    this.boardSizeSubscription.unsubscribe();
-  }
-  ngAfterViewInit(): void {
-    this.gameStateService.setGameData(this.iframe1, this.iframe2);
-  }
 
   onMove(e: any, src: string) {
     this.gameStateService.onMove(e.move, src, e.color);
@@ -89,5 +86,9 @@ export class PlayHomeComponent implements AfterViewInit, OnDestroy {
 
   reset() {
     this.gameStateService.reset();
+  }
+
+  ngOnDestroy(): void {
+    this.boardSizeSubscription.unsubscribe();
   }
 }
