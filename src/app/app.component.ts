@@ -27,7 +27,8 @@ export class AppComponent {
   @HostListener('window:resize', ['$event'])
   getScreenSize() {
     let windowWidth = window.innerWidth;
-    if (windowWidth > 400) this.boardSizeService.boardSizeUpdated.emit(400);
-    else this.boardSizeService.boardSizeUpdated.emit(windowWidth - 20);
+
+    if (windowWidth > 400) this.boardSizeService.onSizeChange(400);
+    else this.boardSizeService.onSizeChange(windowWidth - 20);
   }
 }

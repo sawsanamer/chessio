@@ -3,6 +3,7 @@ import { DatabaseReference } from '@angular/fire/database';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgxChessBoardView } from 'ngx-chess-board';
+import { BehaviorSubject } from 'rxjs';
 import { DatabaseHandlerService } from './database-handler.service';
 
 @Injectable({ providedIn: 'root' })
@@ -12,12 +13,15 @@ export class LiveGameManagerService {
     private router: Router,
     private modalService: NgbModal
   ) {}
-  boardIsDisabledUpdated = new EventEmitter<boolean>();
+  // boardIsDisabledUpdated = new EventEmitter<boolean>();
+
+  private boardIsDisabledUpdated = new BehaviorSubject(false);
+  boardIsDisabled = this.boardIsDisabledUpdated.asObservable();
 
   gameCode: string = '';
   moves: string[] = [];
   playerId: string = '';
-  boardIsDisabled = false;
+  // boardIsDisabled = false;
 
   gameDataRef: DatabaseReference | undefined;
   player2JoinedRef: DatabaseReference | undefined;
@@ -184,9 +188,8 @@ export class LiveGameManagerService {
       (this.moves.length % 2 === 0 && this.playerId === '2') ||
       (this.moves.length % 2 !== 0 && this.playerId === '1')
     ) {
-      this.boardIsDisabled = true;
-    } else this.boardIsDisabled = false;
-    this.boardIsDisabledUpdated.emit(this.boardIsDisabled);
+      this.boardIsDisabledUpdated.next(true);
+    } else this.boardIsDisabledUpdated.next(false);
   }
 
   private onGameEnded() {

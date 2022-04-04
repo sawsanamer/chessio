@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { BoardSizeService } from '../board-size.service';
 
 @Component({
@@ -6,13 +7,19 @@ import { BoardSizeService } from '../board-size.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   constructor(private boardSizeService: BoardSizeService) {}
+  ngOnDestroy(): void {
+    this.boardSizeSubscription.unsubscribe();
+  }
   boardSize = 400;
+  boardSizeSubscription!: Subscription;
 
   ngOnInit(): void {
-    this.boardSizeService.boardSizeUpdated.subscribe((newSize) => {
-      this.boardSize = newSize;
-    });
+    this.boardSizeSubscription = this.boardSizeService.boardSize.subscribe(
+      (newSize) => {
+        this.boardSize = newSize;
+      }
+    );
   }
 }

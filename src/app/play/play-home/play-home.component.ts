@@ -4,23 +4,30 @@ import {
   AfterViewInit,
   ElementRef,
   HostListener,
+  OnDestroy,
 } from '@angular/core';
 import { GameStateService } from '../services/game-state.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BoardSizeService } from 'src/app/board-size.service';
+import { Subscription } from 'rxjs';
+import { IframeManagerService } from '../services/iframe-manager.service';
 
 @Component({
   selector: 'app-play-home',
   templateUrl: './play-home.component.html',
   styleUrls: ['./play-home.component.css'],
+  providers: [GameStateService, IframeManagerService],
 })
-export class PlayHomeComponent implements AfterViewInit {
+export class PlayHomeComponent implements AfterViewInit, OnDestroy {
   iframeSize = '430px';
+  boardSizeSubscription!: Subscription;
 
   ngOnInit(): void {
-    this.boardSizeService.boardSizeUpdated.subscribe((newBoardSize) => {
-      this.iframeSize = (newBoardSize + 30).toString() + 'px';
-    });
+    this.boardSizeSubscription = this.boardSizeService.boardSize.subscribe(
+      (newBoardSize) => {
+        this.iframeSize = (newBoardSize + 30).toString() + 'px';
+      }
+    );
   }
 
   @ViewChild('iframe1', { static: false })
@@ -69,6 +76,9 @@ export class PlayHomeComponent implements AfterViewInit {
     private modalService: NgbModal,
     private boardSizeService: BoardSizeService
   ) {}
+  ngOnDestroy(): void {
+    this.boardSizeSubscription.unsubscribe();
+  }
   ngAfterViewInit(): void {
     this.gameStateService.setGameData(this.iframe1, this.iframe2);
   }

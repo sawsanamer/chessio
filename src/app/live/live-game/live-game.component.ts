@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgxChessBoardView } from 'ngx-chess-board';
+import { Subscription } from 'rxjs';
 import { BoardSizeService } from 'src/app/board-size.service';
 
 import { LiveGameManagerService } from '../services/live-game-manager.service';
@@ -20,6 +21,8 @@ export class LiveGameComponent implements AfterViewInit, OnDestroy {
   boardIsDisabled = false;
   playerId: string = '';
   modalMsg = 'Game has ended.';
+  boardIsDisabledSubscription!: Subscription;
+  boardSizeSubscription!: Subscription;
 
   @ViewChild('board', { static: false })
   board!: NgxChessBoardView;
@@ -28,9 +31,11 @@ export class LiveGameComponent implements AfterViewInit, OnDestroy {
   boardSize = 400;
 
   ngOnInit(): void {
-    this.boardSizeService.boardSizeUpdated.subscribe((newBoardSize) => {
-      this.boardSize = newBoardSize;
-    });
+    this.boardSizeSubscription = this.boardSizeService.boardSize.subscribe(
+      (newBoardSize) => {
+        this.boardSize = newBoardSize;
+      }
+    );
   }
 
   constructor(
@@ -63,6 +68,8 @@ export class LiveGameComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.gameManagerService.onGameDestroy();
+    this.boardSizeSubscription.unsubscribe();
+    this.boardIsDisabledSubscription.unsubscribe();
   }
 
   private init() {
@@ -76,9 +83,10 @@ export class LiveGameComponent implements AfterViewInit, OnDestroy {
       this.newGameModal,
       this.catchDatabaseError.bind(this)
     );
-    this.gameManagerService.boardIsDisabledUpdated.subscribe((val) => {
-      this.boardIsDisabled = val;
-    });
+    this.boardIsDisabledSubscription =
+      this.gameManagerService.boardIsDisabled.subscribe((val) => {
+        this.boardIsDisabled = val;
+      });
   }
   private renderViewBasedOnId() {
     if (this.playerId === '2') this.board.reverse();

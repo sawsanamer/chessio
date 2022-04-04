@@ -1,6 +1,6 @@
 import { ElementRef, Injectable } from '@angular/core';
 import { IframeManagerService } from './iframe-manager.service';
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class GameStateService {
   constructor(private iframeManagerService: IframeManagerService) {}
   moves: string[] = [];
