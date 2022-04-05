@@ -13,6 +13,7 @@ export class LiveGameManagerService {
     private router: Router,
     private modalService: NgbModal
   ) {}
+
   private boardIsDisabledUpdated = new BehaviorSubject(false);
   boardIsDisabled = this.boardIsDisabledUpdated.asObservable();
 
@@ -33,6 +34,7 @@ export class LiveGameManagerService {
   ) {
     this.setDataOnStartup(gameCode, playerId, board, modal);
     this.subscribeToGameData(onDatabaseError);
+    this.boardIsDisabledUpdated.next(playerId == '1' ? false : true);
   }
 
   move(event: any, onDatabaseError: Function) {

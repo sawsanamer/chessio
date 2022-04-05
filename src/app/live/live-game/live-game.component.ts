@@ -88,6 +88,5 @@ export class LiveGameComponent implements AfterViewInit, OnDestroy {
   }
   private renderViewBasedOnId() {
     if (this.playerId === '2') this.board.reverse();
-    this.boardIsDisabled = this.playerId === '1' ? false : true;
   }
 }
