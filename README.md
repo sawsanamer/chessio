@@ -1,6 +1,5 @@
-# Chess
-Pencil FE Assignment
-[Demo Link](https://chess-game-c688f.web.app/)  
+# Chessio
+[Demo Link](https://final-chess.web.app)  
 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.6.
